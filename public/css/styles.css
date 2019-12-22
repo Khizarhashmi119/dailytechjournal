@@ -64,3 +64,9 @@ footer p {
 .read-link:hover {
   color: #3c3d47;
 }
+
+@media (max-width: 400px) {
+  .nvbr-brnd {
+    font-size: 1.5rem;
+  }
+}
