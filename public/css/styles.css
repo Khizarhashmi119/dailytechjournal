@@ -1,0 +1,66 @@
+body {
+  color: #3c3d47;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
+}
+
+p {
+  font-family: "Merriweather", serif;
+}
+
+a {
+  font-family: "Ubuntu", sans-serif;
+}
+
+footer {
+  background-color: #3c3d47;
+  height: 100px;
+  padding: 40px;
+  text-align: center;
+}
+
+footer p {
+  color: #e5dfdf;
+}
+
+.nvbr-brnd {
+  font-size: 2rem;
+  letter-spacing: 0.09375rem;
+}
+
+.nv-link {
+  font-size: 1.5rem;
+  margin: 0 10px;
+}
+
+.title {
+  text-align: center;
+}
+
+.container-fluid {
+  background-color: #e5dfdf;
+  min-height: 550px;
+  padding: 4% 7%;
+}
+
+.box {
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  margin: 50px auto;
+  padding: 16px;
+}
+
+.bg-color {
+  background-color: #3c3d47;
+}
+
+.read-link {
+  color: #3c3d47;
+}
+
+.read-link:hover {
+  color: #3c3d47;
+}

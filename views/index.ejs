@@ -1,0 +1,12 @@
+<%- include("partials/header") -%>
+<h1 class="title"><%= homeStartingContent %></h1>
+<% for(let count = posts.length - 1; count >= 0; count --) { %>
+<div class="box">
+
+  <h2><%= posts[count].title %></h2>
+  <p><%= posts[count].post.substring(0, 100) + " ... " %><a class="read-link" href="post/<%= posts[count].title %>">Read more</a></p>
+  <small><%= posts[count].date %> (IST)</small>
+
+</div>
+<% } %>
+<%- include("partials/footer") -%>
