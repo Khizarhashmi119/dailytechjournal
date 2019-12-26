@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const encrypt = require("mongoose-encryption");
 const _ = require("lodash");
 
 const app = express();
@@ -33,6 +34,25 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
+const detailSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
+
+const secretKey = "ILUASMA";
+detailSchema.plugin(encrypt, {
+  secret: secretKey,
+  encryptedFields: ["password"]
+});
+
+const Detail = mongoose.model("Detail", detailSchema);
+
 const homeStartingContent = "Welcome to my Blog.";
 const aboutContent = "Hello. My name is Mohd. Khizar Hashmi. and this is my personal blog. if you are interested in tech news and updates, then visit my website daily.";
 const contactContent = "If you want to contact me and want to give any feedback then you can email me";
@@ -50,9 +70,30 @@ app.get("/", function(req, res) {
   });
 });
 
-app.get("/compose", function(req, res) {
-  res.render("compose");
-});
+app.route("/auth")
+  .get(function(req, res) {
+    res.render("auth");
+  })
+
+  .post(function(req, res) {
+    Detail.findOne({
+      name: req.body.username
+    }, function(err, result) {
+      if (err) {
+        console.log("Error");
+      } else {
+        if (result) {
+          if (result.password === req.body.password) {
+            res.render("compose");
+          } else {
+            console.log("Incorrect password");
+          }
+        } else {
+          console.log("Incorrect username");
+        }
+      }
+    });
+  });
 
 app.post("/compose", function(req, res) {
   let date = new Date();
@@ -67,7 +108,7 @@ app.post("/compose", function(req, res) {
   date = date.toLocaleDateString("en-us", option);
   const newPost = new Post({
     title: req.body.title,
-    post: req.body.post.slice(0,1000),
+    post: req.body.post.slice(0, 1000),
     date: date
   });
   newPost.save();

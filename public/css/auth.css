@@ -1,0 +1,58 @@
+body {
+  background-image: linear-gradient(45deg, #3c3d47 60%, #e5dfdf 60%);
+  background-repeat: no-repeat;
+  min-height: 1000px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+p {
+  font-family: "Merriweather", serif;
+}
+
+footer {
+  color: #e5dfdf;
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.title-box {
+  background-color: #3c3d47;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  color: #e5dfdf;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 2rem;
+  margin: 50px auto;
+  padding: 2% 7%;
+  text-align: center;
+  width: 40%;
+}
+
+.form-box {
+  background-color: #e5dfdf;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  padding: 3% 5%;
+  text-align: center;
+  width : 40%;
+}
+
+.input {
+  margin: 10px auto;
+  width: 90%;
+}
+
+@media (max-width : 800px) {
+  .title-box {
+    width: 90%;
+  }
+
+  .form-box {
+    width: 90%;
+  }
+}
