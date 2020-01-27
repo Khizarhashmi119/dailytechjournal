@@ -1,22 +1,23 @@
-//jshint esversion:6
-require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const mongoose = require("mongoose");
-const encrypt = require("mongoose-encryption");
-const _ = require("lodash");
+const md5 = require("md5");
 
 const app = express();
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://khizarhashmi119:khizar119131@cluster0-ns5fj.mongodb.net/blogDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  "mongodb+srv://khizarhashmi119:khizar119131@cluster0-ns5fj.mongodb.net/blogDB",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -46,16 +47,13 @@ const detailSchema = new mongoose.Schema({
   }
 });
 
-detailSchema.plugin(encrypt, {
-  secret: process.env.SECRET_KEY,
-  encryptedFields: ["password"]
-});
-
 const Detail = mongoose.model("Detail", detailSchema);
 
 const homeStartingContent = "Welcome to my Blog.";
-const aboutContent = "Hello. My name is Mohd. Khizar Hashmi. and this is my personal blog. if you are interested in tech news and updates, then visit my website daily.";
-const contactContent = "If you want to contact me and want to give any feedback then you can email me";
+const aboutContent =
+  "Hello. My name is Mohd. Khizar Hashmi. and this is my personal blog. if you are interested in tech news and updates, then visit my website daily.";
+const contactContent =
+  "If you want to contact me and want to give any feedback then you can email me";
 
 app.get("/", function(req, res) {
   Post.find({}, function(err, posts) {
@@ -70,29 +68,33 @@ app.get("/", function(req, res) {
   });
 });
 
-app.route("/auth")
+app
+  .route("/auth")
   .get(function(req, res) {
     res.render("auth");
   })
 
   .post(function(req, res) {
-    Detail.findOne({
-      name: req.body.username
-    }, function(err, result) {
-      if (err) {
-        console.log("Error");
-      } else {
-        if (result) {
-          if (result.password === req.body.password) {
-            res.render("compose");
-          } else {
-            console.log("Incorrect password");
-          }
+    Detail.findOne(
+      {
+        name: req.body.username
+      },
+      function(err, result) {
+        if (err) {
+          console.log("Error");
         } else {
-          console.log("Incorrect username");
+          if (result) {
+            if (result.password === md5(req.body.password)) {
+              res.render("compose");
+            } else {
+              console.log("Incorrect password");
+            }
+          } else {
+            console.log("Incorrect username");
+          }
         }
       }
-    });
+    );
   });
 
 app.post("/compose", function(req, res) {
@@ -116,26 +118,26 @@ app.post("/compose", function(req, res) {
 });
 
 app.get("/post/:postName", function(req, res) {
-  Post.find({}, function(err, posts) {
-    posts.forEach(function(post) {
-      if (_.lowerCase(post.title) === _.lowerCase(req.params.postName)) {
-        res.render("post", {
-          post: post,
-        });
-      }
-    });
+  Post.findOne({ title: req.params.postName }, function(err, post) {
+    if (err) {
+      console.log("Error");
+    } else {
+      res.render("post", {
+        post: post
+      });
+    }
   });
 });
 
 app.get("/about", function(req, res) {
   res.render("about", {
-    aboutContent: aboutContent,
+    aboutContent: aboutContent
   });
 });
 
 app.get("/contact", function(req, res) {
   res.render("contact", {
-    contactContent: contactContent,
+    contactContent: contactContent
   });
 });
 
