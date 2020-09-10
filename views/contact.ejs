@@ -1,5 +1,20 @@
-<%- include("partials/header") -%>
-<h1>Contact Me</h1>
-<p><%= contactContent %></p>
-<a href="mailto:khizarhashmi119@gmail.com?subject=feedback"><button class="btn btn-dark" type="button" name="button"><i class="fas fa-envelope"></i> Contact Me</button></a>
-<%- include("partials/footer") -%>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <%- include("./partials/head") %>
+  <body>
+    <%- include("./partials/nav") %>
+    <div class="container-fluid">
+      <h1>Contact Me</h1>
+      <p>
+        If you want to contact me and want to give any feedback then you can
+        email me
+      </p>
+      <a href="mailto:khizarhashmi119@gmail.com?subject=feedback"
+        ><button class="btn btn-dark" type="button" name="button">
+          <i class="fas fa-envelope"></i> Contact Me
+        </button></a
+      >
+    </div>
+    <%- include("./partials/footer") %>
+  </body>
+</html>
