@@ -1,0 +1,2 @@
+# dailytechjournal
+## A blog website.
