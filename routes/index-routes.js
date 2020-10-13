@@ -2,16 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.redirect("/blogs");
-});
+const {
+  index,
+  get_about,
+  get_contact,
+} = require("../controllers/index-controllers");
 
-router.get("/about", function (req, res) {
-  res.render("about");
-});
-
-router.get("/contact", function (req, res) {
-  res.render("contact");
-});
+router.get("/", index);
+router.get("/about", get_about);
+router.get("/contact", get_contact);
 
 module.exports = router;

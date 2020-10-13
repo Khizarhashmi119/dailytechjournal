@@ -1,10 +1,13 @@
 const Blog = require("../models/Blog");
 
 const blog_index = async (req, res) => {
+  const { user } = req;
+
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
+    const blogs = await Blog.find().populate("userId").sort({ createdAt: -1 });
 
     res.render("blog/index", {
+      user,
       blogs,
     });
   } catch (err) {
@@ -13,12 +16,22 @@ const blog_index = async (req, res) => {
 };
 
 const blog_get_create = (req, res) => {
-  res.render("blog/create");
+  const { user } = req;
+  res.render("blog/create", { user });
 };
 
 const blog_post_create = async (req, res) => {
+  const {
+    user: { id },
+  } = req;
+  const { title, content } = req.body;
+
   try {
-    const newBlog = new Blog(req.body);
+    const newBlog = new Blog({
+      userId: id,
+      title,
+      content,
+    });
     await newBlog.save();
   } catch (err) {
     console.error(err);
@@ -29,15 +42,17 @@ const blog_post_create = async (req, res) => {
 
 const blog_detail = async (req, res) => {
   const { id } = req.params;
+  const { user } = req;
 
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate("userId");
 
     res.render("blog/detail", {
+      user,
       blog: blog,
     });
   } catch (err) {
-    res.status(404).render("404");
+    res.status(404).render("404", { user });
   }
 };
 
@@ -53,11 +68,13 @@ const blog_delete = async (req, res) => {
 
 const blog_get_update = async (req, res) => {
   const { id } = req.params;
+  const { user } = req;
 
   try {
     const blog = await Blog.findById(id);
 
     res.render("blog/update", {
+      user,
       blog,
     });
   } catch (err) {
