@@ -1,5 +1,6 @@
 const express = require("express");
 
+const { checkIsAuthenticated } = require("../middlewares/auth-middlewares");
 const {
   blog_index,
   blog_get_create,
@@ -13,11 +14,11 @@ const {
 const router = express.Router();
 
 router.get("/", blog_index);
-router.get("/create", blog_get_create);
-router.post("/create", blog_post_create);
+router.get("/create", checkIsAuthenticated, blog_get_create);
+router.post("/create", checkIsAuthenticated, blog_post_create);
 router.get("/:id", blog_detail);
-router.delete("/delete/:id", blog_delete);
-router.get("/update/:id", blog_get_update);
-router.put("/update/:id", blog_put_update);
+router.delete("/delete/:id", checkIsAuthenticated, blog_delete);
+router.get("/update/:id", checkIsAuthenticated, blog_get_update);
+router.put("/update/:id", checkIsAuthenticated, blog_put_update);
 
 module.exports = router;
