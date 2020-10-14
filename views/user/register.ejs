@@ -1,5 +1,8 @@
 <div class="container-fluid">
   <h1>Register</h1>
+  <% if(errors.length > 0) { %> <% errors.forEach((error) => { %>
+  <p><%= error.msg %></p>
+  <% }) %> <% } %>
   <form action="/user/register" method="post">
     <div class="form-group">
       <label for="name">Name:</label>

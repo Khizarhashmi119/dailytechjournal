@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 const auth_get_login = (req, res) => {
-  res.render("auth/login", { user: null });
+  res.render("auth/login", { user: null, errors: [] });
 };
 
 const auth_get_logout = (req, res) => {
@@ -12,6 +12,7 @@ const auth_get_logout = (req, res) => {
 const auth_post_login = passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/auth/login",
+  failureFlash: true,
 });
 
 module.exports = {

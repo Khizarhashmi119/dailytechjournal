@@ -12,13 +12,13 @@ const initializePassport = (passport) => {
         return done(null, false, { message: "Invalid credentials." });
       }
 
-      const isMatched = bcrypt.compare(password, user.password);
+      const isMatched = await bcrypt.compare(password, user.password);
 
       if (!isMatched) {
         return done(null, false, { message: "Invalid credentials." });
       }
 
-      return done(null, user, { message: "Successfully loggedin." });
+      return done(null, user, { message: "Successfully logged in." });
     } catch (err) {
       return done(err, false, { message: "Internal server error." });
     }

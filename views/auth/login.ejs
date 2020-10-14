@@ -1,5 +1,12 @@
 <div class="container-fluid">
   <h1>Login</h1>
+  <% if(messages.error){ %>
+  <p><%= messages.error %></p>
+  <% } %> <% if(errors.length > 0){ %> <% errors.forEach(error => { %>
+  <p><%= error.msg %></p>
+  <% }) %> <% } %> <% if(messages.success_msg){ %>
+  <p><%= messages.success_msg %></p>
+  <% } %>
   <form action="/auth/login" method="post">
     <div class="form-group">
       <label for="email">Email:</label>
