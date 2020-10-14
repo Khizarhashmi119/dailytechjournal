@@ -1,5 +1,8 @@
 <div class="container-fluid">
   <h1>Create blog.</h1>
+  <% if(errors.length > 0) { %> <% errors.forEach((error) => { %>
+  <p><%= error.msg %></p>
+  <% }) %> <% } %>
   <form action="/blogs/create" method="post">
     <div class="form-group">
       <label for="title">Title:</label>

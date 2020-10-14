@@ -56,11 +56,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  res.user = req.user;
-  next();
-});
-
 //* Set view engine.
 app.set("view engine", "ejs");
 app.set("layout", "layouts/app-layout");

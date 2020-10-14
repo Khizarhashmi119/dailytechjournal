@@ -17,7 +17,7 @@ const blog_index = async (req, res) => {
 
 const blog_get_create = (req, res) => {
   const { user } = req;
-  res.render("blog/create", { user });
+  res.render("blog/create", { user, errors: [] });
 };
 
 const blog_post_create = async (req, res) => {
