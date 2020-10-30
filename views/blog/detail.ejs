@@ -1,24 +1,35 @@
-<div class="container-fluid">
-  <h1><%= blog.title %></h1>
-  <p><%= blog.content %></p>
-  <p>By: <%= blog.userId.name %></p>
-  <p>Date: <%= blog.createdAt %></p>
+<div class="blog-detail">
+  <img
+    class="blog-detail-image"
+    src="https://dl.airtable.com/.attachments/a0cd0702c443f31526267f38ea5314a1/2447eb7a/paris.jpg"
+    alt="<%= blog.title %> "
+  />
+  <h1 class="blog-detail-title"><%= blog.title %></h1>
+  <p class="blog-detail-content"><%= blog.content %></p>
+  <div class="blog-info">
+    <span class="blog-detail-author">By: <%= blog.userId.name %></span>
+    <span class="blog-detail-date">Date: <%= blog.createdAt %></span>
+  </div>
   <% if(user && String(user.id) === String(blog.userId.id)) { %>
-  <button
-    class="btn btn-lg btn-outline-dark"
-    id="delete-btn"
-    data-id="<%= blog._id %>"
-  >
-    Delete
-  </button>
-  <button
-    class="btn btn-lg btn-outline-dark"
-    id="update-btn"
-    data-id="<%= blog._id %>"
-  >
-    Update
-  </button>
+  <div class="blog-detail-forms">
+    <form
+      class="blog-detail-form"
+      action="/blogs/delete/<%= blog._id %>?_method=DELETE "
+      method="post"
+    >
+      <button class="blog-detail-btn" type="submit">
+        <i class="fas fa-trash fa-2x"></i>
+      </button>
+    </form>
+    <form
+      class="blog-detail-form"
+      action="/blogs/update/<%= blog._id %>"
+      method="get"
+    >
+      <button class="blog-detail-btn" type="submit">
+        <i class="fas fa-pen-square fa-2x"></i>
+      </button>
+    </form>
+  </div>
   <% } %>
 </div>
-
-<script src="/js/detail.js"></script>

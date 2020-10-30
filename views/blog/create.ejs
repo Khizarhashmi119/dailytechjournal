@@ -1,32 +1,27 @@
-<div class="container-fluid">
-  <h1>Create blog.</h1>
+<div class="create-form">
+  <h1 class="create-blog-title">Create blog.</h1>
   <% if(errors.length > 0) { %> <% errors.forEach((error) => { %>
   <p><%= error.msg %></p>
   <% }) %> <% } %>
   <form action="/blogs/create" method="post">
-    <div class="form-group">
-      <label for="title">Title:</label>
-      <input
-        class="form-control"
-        type="text"
-        name="title"
-        id="title"
-        required
-        autofocus
-      />
-    </div>
-    <div class="form-group">
-      <label for="content">Content:</label>
-      <textarea
-        class="form-control"
-        name="content"
-        rows="5"
-        cols="30"
-        id="content"
-        placeholder="Write your post here"
-        required
-      ></textarea>
-    </div>
-    <button class="btn btn-lg btn-dark" type="submit">Publish</button>
+    <label class="label" for="title">Title:</label>
+    <input
+      class="input"
+      type="text"
+      name="title"
+      id="title"
+      required
+      autofocus
+    />
+    <label class="label" for="content">Content:</label>
+    <textarea
+      class="textarea"
+      name="content"
+      rows="10"
+      id="content"
+      placeholder="Write your post here"
+      required
+    ></textarea>
+    <button class="btn" type="submit">Publish</button>
   </form>
 </div>

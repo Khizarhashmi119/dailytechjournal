@@ -5,15 +5,11 @@ const router = express.Router();
 
 const { checkIsUnauthenticated } = require("../middlewares/auth-middlewares");
 
-const {
-  user_get_register,
-  user_post_register,
-} = require("../controllers/user-controllers");
+const { user_post_register } = require("../controllers/user-controllers");
 const {
   registerDataValidation,
 } = require("../middlewares/data-validation-middlewares");
 
-router.get("/register", checkIsUnauthenticated, user_get_register);
 router.post(
   "/register",
   [

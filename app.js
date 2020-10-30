@@ -8,6 +8,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("express-flash");
 const passport = require("passport");
+const methodOverride = require("method-override");
 
 const connectDB = require("./db");
 const indexRoutes = require("./routes/index-routes");
@@ -26,8 +27,8 @@ if (process.env.NODE_ENV === "development") {
   app.use(require("morgan")("dev"));
 }
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ extended: false }));
+app.use(methodOverride("_method"));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.use(expressEjsLayouts);
 app.use(

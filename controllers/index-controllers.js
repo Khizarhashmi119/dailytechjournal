@@ -4,12 +4,7 @@ const index = async (req, res) => {
 
 const get_about = async (req, res) => {
   const { user } = req;
-  res.render("index/about", { user });
+  res.render("index/about", { user, title: "About" });
 };
 
-const get_contact = (req, res) => {
-  const { user } = req;
-  res.render("index/contact", { user });
-};
-
-module.exports = { index, get_about, get_contact };
+module.exports = { index, get_about };
