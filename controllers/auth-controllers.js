@@ -1,7 +1,11 @@
 const passport = require("passport");
 
 const auth_get_login = (req, res) => {
-  res.render("auth/login", { user: null, errors: [] });
+  res.render("auth/login", {
+    user: null,
+    errors: [],
+    title: "Login and register",
+  });
 };
 
 const auth_get_logout = (req, res) => {

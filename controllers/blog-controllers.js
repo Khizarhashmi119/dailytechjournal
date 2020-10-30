@@ -9,6 +9,7 @@ const blog_index = async (req, res) => {
     res.render("blog/index", {
       user,
       blogs,
+      title: "Home",
     });
   } catch (err) {
     console.error(err);
@@ -17,7 +18,7 @@ const blog_index = async (req, res) => {
 
 const blog_get_create = (req, res) => {
   const { user } = req;
-  res.render("blog/create", { user, errors: [] });
+  res.render("blog/create", { user, errors: [], title: "Create blog" });
 };
 
 const blog_post_create = async (req, res) => {
@@ -50,6 +51,7 @@ const blog_detail = async (req, res) => {
     res.render("blog/detail", {
       user,
       blog: blog,
+      title: "Blog",
     });
   } catch (err) {
     res.status(404).render("404", { user });
@@ -60,7 +62,7 @@ const blog_delete = async (req, res) => {
   const { id } = req.params;
   try {
     await Blog.findByIdAndRemove(id);
-    res.json({ redirect: "/" });
+    res.redirect("/");
   } catch (err) {
     console.error(err);
   }
@@ -76,6 +78,7 @@ const blog_get_update = async (req, res) => {
     res.render("blog/update", {
       user,
       blog,
+      title: "Update blog",
     });
   } catch (err) {
     console.error(err);
@@ -88,7 +91,7 @@ const blog_put_update = async (req, res) => {
     const newBlog = await Blog.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.json({ redirect: `/blogs/${newBlog._id}` });
+    res.redirect(`/blogs/${newBlog._id}`);
   } catch (err) {
     console.error(err);
   }

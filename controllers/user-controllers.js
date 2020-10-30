@@ -2,10 +2,6 @@ const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
 
-const user_get_register = (req, res) => {
-  res.render("user/register", { user: null, errors: [] });
-};
-
 const user_post_register = async (req, res) => {
   let errors = [];
   const { name, email, password } = req.body;
@@ -15,7 +11,7 @@ const user_post_register = async (req, res) => {
 
     if (user) {
       errors.push({ msg: "Email already exist." });
-      return res.render("user/register", {
+      return res.render("auth/login", {
         user: null,
         errors,
       });
@@ -36,11 +32,11 @@ const user_post_register = async (req, res) => {
   } catch (err) {
     console.log(err);
     errors.push({ msg: "Internal server error." });
-    res.render("/user/register", {
+    res.render("/auth/login", {
       user: null,
       errors,
     });
   }
 };
 
-module.exports = { user_get_register, user_post_register };
+module.exports = { user_post_register };
